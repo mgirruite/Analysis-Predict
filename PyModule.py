@@ -49,6 +49,31 @@ stop_words_dict = {
     ]
 }
 
+def dictionary_of_metrics(items):
+    """produce statistics metrics from a list and return a dictionary of the metrics"""
+    
+    metrics_dict = {}
+    _mean = np.mean(items)
+    metrics_dict['mean'] = round(_mean,2)
+    
+    _median = np.median(items)
+    metrics_dict['median'] = round(_median,2)
+    
+    _std = np.std(items,ddof=1)
+    metrics_dict['std'] = round(_std,2)
+    
+    _variance = np.var(items,axis=None)
+    metrics_dict['var'] = round(_variance)
+    
+    _min = np.min(items)
+    metrics_dict['min'] = round(_min,2)
+
+    _max= np.max(items)
+    metrics_dict['max'] = round(_max,2)
+    
+    return metrics_dict
+
+
 
 ### START FUNCTION
 def five_num_summary(items):
@@ -69,7 +94,7 @@ def five_num_summary(items):
     five_num_dict['q1'] = first_quartile
     
     third_quartile = np.percentile(items,75)
-    five_num_dict['q2'] = third_quartile
+    five_num_dict['q3'] = third_quartile
       
     return five_num_dict
 
