@@ -77,7 +77,7 @@ def dictionary_of_metrics(items):
 
 ### START FUNCTION
 def five_num_summary(items):
-    """five_num_summary produces a five number summary from a list and return a dictionary as a dictionary"""
+    """produces a five number summary statistics in a dictionary"""
    
     five_num_dict = {}
 
@@ -102,7 +102,7 @@ def five_num_summary(items):
 
 ### START FUNCTION
 def date_parser(dates):
-    """date_parser produces a date string from a datatime string and return list of dates e.g From 'yyyy-mm-dd hh:mm:ss' to        'yyyy-mm-dd'"""
+    """produces a date string from a datatime string e.g From 'yyyy-mm-dd hh:mm:ss' to 'yyyy-mm-dd'"""
 
     from dateutil.parser import parse
 
@@ -117,9 +117,9 @@ def date_parser(dates):
 
 ### START FUNCTION
 def extract_municipality_hashtags(df):
-    """extract_municipality_hashtags create two columns('municipality' and hashtags) and extract municipality related hashtags,and populated the columns"""
-	
-    import re as reg
+   	"""create two columns('municipality' and hashtags) and extract municipality related hashtags,and populate the columns"""
+    
+	import re as reg
     hashtag_list = []
     df['municipality'] = np.nan
     df['hashtags'] = np.nan
@@ -128,7 +128,7 @@ def extract_municipality_hashtags(df):
         for hashtag in range(len(twitter_df['Tweets'])):
             if df['Tweets'].str.contains('#')[hashtag]:
                 hashtag_results = twitter_df['Tweets'][hashtag]
-                hashtag_list = reg.findall(r'#\w+', res) 
+                hashtag_list = reg.findall(r'#\w+', hashtag_results) 
                 df['hashtags'][hashtag]=hashtag_list
                 if reg.match(values,twitter_df['Tweets'][hashtag]):
                     df['municipality'][hashtag] = values
@@ -141,15 +141,15 @@ def extract_municipality_hashtags(df):
 
 ### START FUNCTION
 def number_of_tweets_per_day(df):
-    """number_of_tweets_per_day calculates the number of tweets that were posted per day"""
+     """calculates the number of tweets that were posted per day"""
 
-    df = pd.read_csv(twitter_url).copy()
+    
     tweets_df = pd.DataFrame()
     dates = df['Date'].to_list()
     date_results = []
     for _date in dates:
         dt = parse(_date)
-        date_res.append(str(dt.date()))
+        date_results.append(str(dt.date()))
 
     tweets_df['Tweets'] = df.pivot_table(index=date_results, aggfunc='size')
   
@@ -160,7 +160,7 @@ def number_of_tweets_per_day(df):
 
 ### START FUNCTION
 def word_splitter(df):
-    """word_splitter splits the sentences in a dataframe's column into a list of the separate words"""
+    """splits the sentences in a dataframe's column into a list of the separate words"""
 	
     tweets_list =df['Tweets'].to_list()
     split_list = []
@@ -174,7 +174,7 @@ def word_splitter(df):
 
 ### START FUNCTION
 def stop_words_remover(df):
-    """ stop_words_remover removes english stop words from a tweet"""
+    """removes english stop words from a tweet"""
 
     tweets_list =df['Tweets'].to_list()
     new_list = []
